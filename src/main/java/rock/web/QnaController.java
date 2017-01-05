@@ -7,34 +7,31 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import rock.domain.Qna;
+import rock.domain.QnaRepository;
 import rock.domain.User;
-import rock.domain.UserRepository;
 
 @Controller
-@RequestMapping("/users")
-public class UserController {
-	
+@RequestMapping("/qna")
+public class QnaController {
+
 	@Autowired
-	private UserRepository userRepository;
-	
+	private QnaRepository qnaRepository;
 	
 	@PostMapping("")
-	public String create(User user){
-		System.out.println("User : "+user);
-		userRepository.save(user);
+	public String create(Qna qna){
+		System.out.println("QnA : "+qna);
 		
-		return "redirect:/users";	
+		qnaRepository.save(qna);
+		return "redirect:/qna";	
 	}
 	
 	@GetMapping("")
 	public String list(Model model){
 		
-		model.addAttribute("users", userRepository.findAll());
+		model.addAttribute("qnas", qnaRepository.findAll());
 		
-		return "user/list"; 
+		return "redirect:/"; 
 	}
-	
-	
-	
 	
 }
