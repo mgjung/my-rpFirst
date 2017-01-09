@@ -34,6 +34,11 @@ public class UserController {
 		return "user/list"; 
 	}
 	
+	@GetMapping("/form")
+	public String form(Model model){
+		
+		return "user/form"; 
+	}
 	
 	
 	

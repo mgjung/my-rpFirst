@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import rock.domain.Qna;
 import rock.domain.QnaRepository;
-import rock.domain.User;
+
 
 @Controller
 @RequestMapping("/qna")
@@ -31,7 +31,12 @@ public class QnaController {
 		
 		model.addAttribute("qnas", qnaRepository.findAll());
 		
-		return "redirect:/"; 
+		return "index"; 
+	}
+	@GetMapping("/form")
+	public String form(Model model){
+		
+		return "qna/form"; 
 	}
 	
 }
