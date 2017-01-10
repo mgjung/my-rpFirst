@@ -11,7 +11,7 @@ public class HomeController {
 	public String home(String name, String age, Model model){
 		model.addAttribute("name", name);
 		model.addAttribute("age", age);
-		return "index";
+		return "/qna";
 	}
 	
 }

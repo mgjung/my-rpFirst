@@ -1,11 +1,14 @@
 package rock.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import rock.domain.User;
@@ -31,8 +34,8 @@ public class UserController {
 	public String list(Model model){
 		
 		model.addAttribute("users", userRepository.findAll());
+		return "user/list";
 		
-		return "user/list"; 
 	}
 	
 	@GetMapping("/form")
@@ -40,6 +43,7 @@ public class UserController {
 		
 		return "user/form"; 
 	}
+	
 	@GetMapping("{id}/updateForm")
 	public String updateForm(@PathVariable Long id, Model model){
 		User user = userRepository.findOne(id);
@@ -47,15 +51,38 @@ public class UserController {
 		return "user/updateForm"; 
 	}
 	
-	@PostMapping("{id}/update")
+	@PutMapping("{id}/update")
 	public String update(@PathVariable Long id, User user){
-		User user2 = userRepository.findOne(id);
-		if(user.getPassword().equals(user2.getPassword())){
-			userRepository.save(user);
-		}
+		User dbUser = userRepository.findOne(id);
+		
+		dbUser.update(user);
+		userRepository.save(user);
 		
 		
 		return "redirect:/users";	
+	}
+	
+	@GetMapping("/login")
+	public String login(){
+		
+		return "user/login"; 
+	}
+	
+	@PostMapping("/login")
+	public  String login(String  userId, String password, HttpSession session) {
+		
+		String url = "";
+		
+		User user = userRepository.findByUserId(userId);
+		
+		if(user != null && user.passMatching(password) ){
+			url="redirect:/";
+			session.setAttribute("sessionedUser",  user);
+		}else{
+			url="user/login_failed";
+		}
+		
+		return url;
 	}
 	
 }

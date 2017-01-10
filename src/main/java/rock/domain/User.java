@@ -11,7 +11,7 @@ public class User {
 	@GeneratedValue
 	private long id;
 	
-	@Column(name="uid", length = 20, nullable=false, unique=true)
+	@Column(length = 20, nullable=false, unique=true)
 	private String userId;
 	
 	@Column(nullable=false)
@@ -55,6 +55,21 @@ public class User {
 	}
 	public String getEmail() {
 		return email;
+	}
+	
+	public void update(User updateUser){
+		if(!passMatching(updateUser)){
+			throw new IllegalStateException("실패");
+		}
+	    this.name = updateUser.name;
+	    this.email = updateUser.email;
+	}
+	
+	public boolean passMatching(User updateUser){
+		return this.password.equals(updateUser.password);
+	}
+	public boolean passMatching(String password){
+		return this.password.equals(password);
 	}
 	
 }
