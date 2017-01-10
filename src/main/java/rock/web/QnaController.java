@@ -49,8 +49,7 @@ public class QnaController {
 	}
 	@GetMapping("/form")
 	public String form(HttpSession session,Model model){
-		
-		Object value = session.getAttribute("sessionedUser"); 
+		System.out.println("Here /qna/form ~~~");
 		String url = "redirect:/users/login";;
 		User user = getSessionUser(session);
 		if (user != null)  {

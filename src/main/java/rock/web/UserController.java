@@ -72,7 +72,7 @@ public class UserController {
 	public  String login(String  userId, String password, HttpSession session) {
 		
 		String url ="user/login_failed";
-		
+		System.out.println("Here /users/login ~~~");
 		User user = userRepository.findByUserId(userId);
 		
 		if(user != null && user.passMatching(password) ){
