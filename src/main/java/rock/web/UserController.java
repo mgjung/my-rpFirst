@@ -53,7 +53,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/login")
-	public String login(){
+	public String login(HttpSession session){
 		
 		return "user/login"; 
 	}
