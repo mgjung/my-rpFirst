@@ -50,5 +50,6 @@ public class Answer {
 	public void settingDBData(Question question, User writer){
 		this.question = question;
 		this.writer = writer;
+		
 	}
 }

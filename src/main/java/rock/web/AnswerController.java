@@ -27,13 +27,12 @@ public class AnswerController {
 	private QuestionRepository qnaRepository;
 	
 	@PostMapping("")
-	public String create(HttpSession session, Long id, Answer ans){
-		Question qus = qnaRepository.findOne(id);
+	public String create(HttpSession session, Long questionId, Answer ans){
+		Question qus = qnaRepository.findOne(questionId);
 		User user = getSessionUser(session);
 		ans.settingDBData(qus, user);
-		
 		ansRepository.save(ans);
-		return "redirect:/qna/"+id.toString();	
+		return "redirect:/qna/"+questionId.toString();	
 	}
 	
 	public User getSessionUser(HttpSession session){
