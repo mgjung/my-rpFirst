@@ -29,7 +29,7 @@
                               <a class="link-modify-article" href="/questions/423/form">수정</a>
                           </li>
                           <li>
-                              <form class="form-delete" action="/questions/423" method="POST">
+                              <form class="form-delete" action="/qna/{{qna.id}}" method="POST">
                                   <input type="hidden" name="_method" value="DELETE">
                                   <button class="link-delete-article" type="submit">삭제</button>
                               </form>
@@ -67,7 +67,7 @@
                                           <a class="link-modify-article" href="/questions/413/answers/1405/form">수정</a>
                                       </li>
                                       <li>
-                                          <form class="form-delete" action="/questions/413/answers/1405" method="POST">
+                                          <form class="form-delete" action="/question/{{qna.id}}/answer/{{id}}" method="POST">
                                               <input type="hidden" name="_method" value="DELETE">
                                               <button type="submit" class="link-delete-article">삭제</button>
                                           </form>
@@ -76,13 +76,12 @@
                               </div>
                           </article>
                           {{/answers}}
-                          <form class="submit-write" name="answer" method="post" action="/answer">
-                          	<input type="hidden" name="questionId" value="{{qna.id}}"/>
-                              <div class="form-group" style="padding:14px;">
-                                  <textarea name="contents" id="contents" class="form-control" placeholder="Update your status"></textarea>
-                              </div>
-                              <button class="btn btn-success pull-right" type="submit">답변하기</button>
-                              <div class="clearfix" />
+                          <form class="submit-write" name="answer" method="post" action="/question/{{qna.id}}/answer">
+                          		<div class="form-group" style="padding:14px;">
+                                	<textarea name="contents" id="contents" class="form-control" placeholder="Update your status"></textarea>
+                              	</div>
+                              	<button class="btn btn-success pull-right" type="submit">답변하기</button>
+                              	<div class="clearfix" />
                           </form>
                       </div>
                   </div>

@@ -71,15 +71,13 @@ public class UserController {
 	@PostMapping("/login")
 	public  String login(String  userId, String password, HttpSession session) {
 		
-		String url = "";
+		String url ="user/login_failed";
 		
 		User user = userRepository.findByUserId(userId);
 		
 		if(user != null && user.passMatching(password) ){
 			url="redirect:/";
 			session.setAttribute("sessionedUser",  user);
-		}else{
-			url="user/login_failed";
 		}
 		
 		return url;

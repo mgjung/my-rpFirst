@@ -71,5 +71,8 @@ public class User {
 	public boolean passMatching(String password){
 		return this.password.equals(password);
 	}
+	public boolean userMatching(User user){
+		return this.userId == user.userId;
+	}
 	
 }

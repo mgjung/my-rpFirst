@@ -52,4 +52,8 @@ public class Answer {
 		this.writer = writer;
 		
 	}
+	public boolean userMatching(User user){
+		return this.writer.userMatching(user);
+	}
+	
 }

@@ -28,7 +28,7 @@ public class Question {
 	@Column(nullable=false)
 	private String contents;
 
-	@OneToMany(mappedBy="question")
+	@OneToMany(mappedBy="question", orphanRemoval=true)
 	private List<Answer> ans;
 	
 	public void setId(long id) {
@@ -51,6 +51,7 @@ public class Question {
 		this.ans = ans;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "Qna [id=" + id + ", writer=" + writer + ", title=" + title + ", contents=" + contents + "]";
@@ -60,5 +61,7 @@ public class Question {
 		this.writer = writer;
 		
 	}
-	
+	public boolean userMatching(User user){
+		return this.writer.userMatching(user);
+	}
 }

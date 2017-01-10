@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +45,7 @@ public class QnaController {
 		
 		model.addAttribute("qnas", qnaRepository.findAll());
 		
-		return "index"; 
+		return "redirect:/"; 
 	}
 	@GetMapping("/form")
 	public String form(HttpSession session,Model model){
@@ -68,6 +69,19 @@ public class QnaController {
 		model.addAttribute("answers", answers);
 		
 		return "qna/show"; 
+	}
+	
+	@DeleteMapping("{id}")
+	public String delete(HttpSession session, @PathVariable Long id){
+		User user = getSessionUser(session);
+		Question qna = qnaRepository.findOne(id);
+		
+		if(qna.userMatching(user)){
+			
+			qnaRepository.delete(id);
+		}
+		
+		return "redirect:/";
 	}
 	
 	public User getSessionUser(HttpSession session){
