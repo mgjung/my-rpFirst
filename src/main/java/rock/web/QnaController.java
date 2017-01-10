@@ -45,7 +45,7 @@ public class QnaController {
 		
 		model.addAttribute("qnas", qnaRepository.findAll());
 		
-		return "redirect:/"; 
+		return "index"; 
 	}
 	@GetMapping("/form")
 	public String form(HttpSession session,Model model){
