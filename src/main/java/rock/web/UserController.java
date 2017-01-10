@@ -37,6 +37,26 @@ public class UserController {
 		return "user/list";
 		
 	}
+	@PostMapping("/login")
+	public  String login(String  userId, String password, HttpSession session) {
+		
+		String url ="user/login_failed";
+		System.out.println("Here /users/login ~~~");
+		User user = userRepository.findByUserId(userId);
+		
+		if(user != null && user.passMatching(password) ){
+			url="redirect:/";
+			session.setAttribute("sessionedUser",  user);
+		}
+		
+		return url;
+	}
+	
+	@GetMapping("/login")
+	public String login(){
+		
+		return "user/login"; 
+	}
 	
 	@GetMapping("/form")
 	public String form(){
@@ -62,25 +82,8 @@ public class UserController {
 		return "redirect:/users";	
 	}
 	
-	@GetMapping("/login")
-	public String login(){
-		
-		return "user/login"; 
-	}
 	
-	@PostMapping("/login")
-	public  String login(String  userId, String password, HttpSession session) {
-		
-		String url ="user/login_failed";
-		System.out.println("Here /users/login ~~~");
-		User user = userRepository.findByUserId(userId);
-		
-		if(user != null && user.passMatching(password) ){
-			url="redirect:/";
-			session.setAttribute("sessionedUser",  user);
-		}
-		
-		return url;
-	}
+	
+	
 	
 }
