@@ -36,12 +36,16 @@ public class UserService {
 	}
 
 	public void update(User user, Long id) {
-		User dbUser = findOne(id);
-		dbUser.update(user);
-		save(user);
+		save(findOne(id).update(user));
 	}
 	
-
+	public User login(String userId, String password){
+		User user = findByUserId(userId);
+		if(user != null && user.passMatching(password)){
+			return user;
+		}
+		return null;
+	}
 	
 	
 }

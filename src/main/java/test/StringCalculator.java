@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class StringCalculator {
 
 	public int add(String numbers) {
-		int result = 0;
+		
 		if(isNull(numbers)){
 			return 0;
 		}

@@ -52,12 +52,13 @@ public class User {
 		return "User [userId=" + userId + ", name=" + name + ", email=" + email + "]";
 	}
 	
-	public void update(User updateUser){
+	public User update(User updateUser){
 		if(!passMatching(updateUser)){
 			throw new IllegalStateException("실패");
 		}
 	    this.name = updateUser.name;
 	    this.email = updateUser.email;
+	    return this;
 	}
 	
 	public boolean passMatching(User updateUser){

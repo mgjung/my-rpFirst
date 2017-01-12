@@ -1,5 +1,8 @@
 package rock.domain;
 
+
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -29,28 +32,28 @@ public class Answer {
 	@Column(nullable=true)
 	private String isDelete;
 	
-	@Column(nullable=true)
-	private String deletePerson;
+	@ManyToOne
+	@JoinColumn(foreignKey=@ForeignKey( name = "fk_answer_to_deletePersion"))
+	private User deletePerson;
 	
 	@Column(nullable=true)
-	private String deleteTime;
+	private Date deleteTime;
 	
 	public Answer(){
 		
 	}
 	
-	
-
-
-	public Answer(long id, Question question, User writer, String contents, String isDelete) {
+	public Answer(long id, Question question, User writer, String contents, String isDelete, User deletePerson,
+			Date deleteTime) {
 		super();
 		this.id = id;
 		this.question = question;
 		this.writer = writer;
 		this.contents = contents;
 		this.isDelete = isDelete;
+		this.deletePerson = deletePerson;
+		this.deleteTime = deleteTime;
 	}
-
 
 
 	public void setId(long id) {
@@ -69,10 +72,11 @@ public class Answer {
 		this.contents = contents;
 	}
 
-		
+	
 	@Override
 	public String toString() {
-		return "Answer [id=" + id + ", contents=" + contents + ", isDelete=" + isDelete + "]";
+		return "Answer [id=" + id + ", question=" + question + ", writer=" + writer + ", contents=" + contents
+				+ ", isDelete=" + isDelete + ", deletePerson=" + deletePerson + ", deleteTime=" + deleteTime + "]";
 	}
 
 
@@ -85,8 +89,10 @@ public class Answer {
 		return this.writer.userMatching(user);
 	}
 	
-	public void delete(){
+	public void delete(User user, Date date){
 		this.isDelete = "1";
+		this.deletePerson = user;
+		this.deleteTime = date;
 	}
 	
 }

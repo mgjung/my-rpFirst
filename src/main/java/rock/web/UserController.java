@@ -36,19 +36,14 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public  String login(String  userId, String password, HttpSession session) {
-		
-		String url ="user/login_failed";
-		User user = userService.findByUserId(userId);
-		
-		url=userIdentify(password, user);
+		User user = userService.login(userId, password);
 		session.setAttribute("sessionedUser",  user);
-	
-		return url;
+		return userIdentify(user);
 	}
 
-	private String userIdentify(String password, User user) {
-		String url = "";
-		if(user != null && user.passMatching(password)){
+	private String userIdentify(User user) {
+		String url ="user/login_failed";
+		if(user != null){
 			url="redirect:/";
 		}
 		return url;

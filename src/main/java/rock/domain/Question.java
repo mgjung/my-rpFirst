@@ -1,5 +1,7 @@
 package rock.domain;
 
+
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,7 +35,7 @@ public class Question {
 	private User deletePerson;
 	
 	@Column(nullable=true)
-	private String deleteTime;
+	private Date deleteTime;
 	
 	@Column(nullable=false)
 	private String contents;
@@ -46,21 +48,20 @@ public class Question {
 		
 	}
 	
-
 	
 
-	public Question(long id, User writer, String title, String isDelete, User deletePerson, String contents,
-			List<Answer> ans) {
+	public Question(long id, User writer, String title, String isDelete, User deletePerson, Date deleteTime,
+			String contents, List<Answer> ans) {
 		super();
 		this.id = id;
 		this.writer = writer;
 		this.title = title;
 		this.isDelete = isDelete;
 		this.deletePerson = deletePerson;
+		this.deleteTime = deleteTime;
 		this.contents = contents;
 		this.ans = ans;
 	}
-
 
 
 
@@ -96,11 +97,7 @@ public class Question {
 		this.deletePerson = deletePerson;
 	}
 
-
-	public void setDeleteTime(String deleteTime) {
-		this.deleteTime = deleteTime;
-	}
-
+	
 
 	@Override
 	public String toString() {
@@ -135,12 +132,14 @@ public class Question {
 	}
 
 
-	public void delete(User user) {
+	public Question delete(User user, Date date) {
 		this.isDelete = "1";
 		this.deletePerson = user;
+		this.deleteTime = date;
 		for(Answer answer : ans){
-			answer.delete();
+			answer.delete(user, date);
 		}
+		return this;
 	}
 
 }
