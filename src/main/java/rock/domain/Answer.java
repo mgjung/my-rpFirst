@@ -26,6 +26,33 @@ public class Answer {
 	@Column(nullable=false)
 	private String contents;
 	
+	@Column(nullable=true)
+	private String isDelete;
+	
+	@Column(nullable=true)
+	private String deletePerson;
+	
+	@Column(nullable=true)
+	private String deleteTime;
+	
+	public Answer(){
+		
+	}
+	
+	
+
+
+	public Answer(long id, Question question, User writer, String contents, String isDelete) {
+		super();
+		this.id = id;
+		this.question = question;
+		this.writer = writer;
+		this.contents = contents;
+		this.isDelete = isDelete;
+	}
+
+
+
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -42,11 +69,13 @@ public class Answer {
 		this.contents = contents;
 	}
 
+		
 	@Override
 	public String toString() {
-		return "Answer [id=" + id + ", Question=" + question + ", writer=" + writer + ", contents=" + contents + "]";
+		return "Answer [id=" + id + ", contents=" + contents + ", isDelete=" + isDelete + "]";
 	}
-	
+
+
 	public void settingDBData(Question question, User writer){
 		this.question = question;
 		this.writer = writer;
@@ -54,6 +83,10 @@ public class Answer {
 	}
 	public boolean userMatching(User user){
 		return this.writer.userMatching(user);
+	}
+	
+	public void delete(){
+		this.isDelete = "1";
 	}
 	
 }

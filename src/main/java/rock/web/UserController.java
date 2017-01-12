@@ -12,48 +12,50 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import rock.domain.User;
-import rock.domain.UserRepository;
+import rock.service.UserService;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	
 	
 	@PostMapping("")
 	public String create(User user){
-		System.out.println("User : "+user);
-		userRepository.save(user);
-		
+		userService.save(user);
 		return "redirect:/users";	
 	}
 	
 	@GetMapping("")
 	public String list(Model model){
-		
-		model.addAttribute("users", userRepository.findAll());
+		model.addAttribute("users", userService.findAll());
 		return "user/list";
-		
 	}
+	
 	@PostMapping("/login")
 	public  String login(String  userId, String password, HttpSession session) {
 		
 		String url ="user/login_failed";
-		System.out.println("Here /users/login ~~~");
-		User user = userRepository.findByUserId(userId);
+		User user = userService.findByUserId(userId);
 		
-		if(user != null && user.passMatching(password) ){
+		url=userIdentify(password, user);
+		session.setAttribute("sessionedUser",  user);
+	
+		return url;
+	}
+
+	private String userIdentify(String password, User user) {
+		String url = "";
+		if(user != null && user.passMatching(password)){
 			url="redirect:/";
-			session.setAttribute("sessionedUser",  user);
 		}
-		
 		return url;
 	}
 	
 	@GetMapping("/login")
-	public String login(HttpSession session){
+	public String login(){
 		
 		return "user/login"; 
 	}
@@ -66,24 +68,20 @@ public class UserController {
 	
 	@GetMapping("{id}/updateForm")
 	public String updateForm(@PathVariable Long id, Model model){
-		User user = userRepository.findOne(id);
+		User user = userService.findOne(id);
 		model.addAttribute("user", user);
 		return "user/updateForm"; 
 	}
 	
 	@PutMapping("{id}/update")
 	public String update(@PathVariable Long id, User user){
-		User dbUser = userRepository.findOne(id);
-		
-		dbUser.update(user);
-		userRepository.save(user);
-		
-		
+		userService.update(user, id);
 		return "redirect:/users";	
 	}
 	
-	
-	
-	
-	
+	@GetMapping("/logout")
+	public String logout(HttpSession session){
+		session.setAttribute("sessionedUser", null);
+		return "redirect:/";
+	}
 }

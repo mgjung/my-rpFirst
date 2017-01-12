@@ -34,6 +34,19 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public User(){}
+	
+	
+	public User(long id, String userId, String password, String name, String email) {
+		super();
+		this.id = id;
+		this.userId = userId;
+		this.password = password;
+		this.name = name;
+		this.email = email;
+	}
+	
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", name=" + name + ", email=" + email + "]";

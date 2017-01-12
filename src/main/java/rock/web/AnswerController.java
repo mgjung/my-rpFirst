@@ -11,37 +11,42 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import rock.domain.Answer;
-import rock.domain.AnswerRepository;
 import rock.domain.Question;
-import rock.domain.QuestionRepository;
 import rock.domain.User;
+import rock.service.AnswerService;
+import rock.service.QuestionService;
 
 @Controller
 @RequestMapping("/question/{questionid}/answer")
 public class AnswerController {
 
 	@Autowired
-	private AnswerRepository ansRepository;
+	private AnswerService answerService;
 	
 	@Autowired
-	private QuestionRepository qnaRepository;
+	private QuestionService questionService;
 	
 	@PostMapping("")
 	public String create(HttpSession session, @PathVariable Long questionid, Answer ans){
-		Question qus = qnaRepository.findOne(questionid);
+		Question qus = questionService.findOne(questionid);
+		String url = "redirect:/users/login";
 		User user = getSessionUser(session);
-		ans.settingDBData(qus, user);
-		ansRepository.save(ans);
-		return "redirect:/qna/"+questionid.toString();	
+		if (user != null)  {
+			ans.settingDBData(qus, user);
+			answerService.save(ans);
+			url = "redirect:/qna/"+questionid.toString();;
+		} 
+		
+		return url;	
 	}
 	
 	@DeleteMapping("{id}")
 	public String delete(HttpSession session, @PathVariable Long questionid, @PathVariable Long id){
 		User user = getSessionUser(session);
-		Answer ans = ansRepository.findOne(id);
+		Answer ans = answerService.findOne(id);
 		
 		if(ans.userMatching(user)){
-			ansRepository.delete(id);
+			answerService.delete(id);
 		}
 		
 		return "redirect:/qna/"+questionid.toString();
