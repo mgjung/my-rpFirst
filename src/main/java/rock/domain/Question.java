@@ -48,8 +48,6 @@ public class Question {
 		
 	}
 	
-	
-
 	public Question(long id, User writer, String title, String isDelete, User deletePerson, Date deleteTime,
 			String contents, List<Answer> ans) {
 		super();
@@ -117,6 +115,9 @@ public class Question {
 	}
 
 	public int getAnswerSize() {
+		if(this.ans==null){
+			return 0;
+		}
 		return this.ans.size();
 	}
 
@@ -141,5 +142,12 @@ public class Question {
 		}
 		return this;
 	}
+
+	public boolean isAnswer() {
+		
+		return ans != null;
+	}
+	
+	
 
 }

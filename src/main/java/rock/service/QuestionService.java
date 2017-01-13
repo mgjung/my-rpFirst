@@ -25,13 +25,13 @@ public class QuestionService {
 	}
 
 	public List<Question> findAll() {
-		//Specifications<Question> specifications = Specifications.where(QuestionSpecification.questionEq("0"));
+		
 		return  questionReppository.findByIsDelete("0");
 	}
 
 	public Question findOne(Long id) {
-		
-		return questionReppository.findOne(id);
+		//Specifications<Question> specifications = Specifications.where(QuestionSpecification.questionEq(id));
+		return questionReppository.findByIdAndAnsIsDeleteIsNullOrAnsIsDeleteNot(id, "1");
 	}
 
 	public void delete(User user, Long id) {

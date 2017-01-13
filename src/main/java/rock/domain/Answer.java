@@ -83,6 +83,7 @@ public class Answer {
 	public void settingDBData(Question question, User writer){
 		this.question = question;
 		this.writer = writer;
+		this.isDelete = "0";
 		
 	}
 	public boolean userMatching(User user){

@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface QuestionRepository extends JpaRepository<Question,Long>, JpaSpecificationExecutor<Question> {
 	List<Question> findByIsDelete(String isDelete);
+	Question findByIdAndAnsIsDeleteIsNullOrAnsIsDeleteNot(Long id, String isDelete);
 }

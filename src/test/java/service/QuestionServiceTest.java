@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -88,5 +89,9 @@ public class QuestionServiceTest {
 		assertThat(answer.toString(), is(comAns.toString()));
 	}
 	
+	@Test
+	public void answer존재여부_확인() throws Exception {
+		assertTrue(qus.isAnswer());
+	}
 	
 }
