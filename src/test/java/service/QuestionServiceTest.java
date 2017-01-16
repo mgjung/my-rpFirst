@@ -12,13 +12,13 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import rock.domain.Answer;
 import rock.domain.Question;
 
 import rock.domain.User;
-import rock.service.QuestionService;
+
 
 
 

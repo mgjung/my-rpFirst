@@ -84,9 +84,6 @@ public class Question {
 	public void setAns(List<Answer> ans) {
 		this.ans = ans;
 	}
-	public List<Answer> getAns() {
-		return ans;
-	}
 	
 	public void setIsDelete(String isDelete) {
 		this.isDelete = isDelete;
