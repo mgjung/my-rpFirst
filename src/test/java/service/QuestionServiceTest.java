@@ -12,11 +12,13 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import rock.domain.Answer;
 import rock.domain.Question;
 
 import rock.domain.User;
+import rock.service.QuestionService;
 
 
 
@@ -75,6 +77,16 @@ public class QuestionServiceTest {
 		
 		Date date = new Date();
 		Question comQus = new Question(1L, user, "test","1",user,date,"test", ans1, 2);
+		qus.delete(user, date);
+		assertThat(qus.toString(), is(comQus.toString()));
+	}
+	
+	@Test
+	public void question_delete답변이_없을때(){
+		
+		Date date = new Date();
+		Question qus = new Question(1L, user, "test","1",null,null,"test", null, 0);
+		Question comQus = new Question(1L, user, "test","1",user,date,"test", null, 0);
 		qus.delete(user, date);
 		assertThat(qus.toString(), is(comQus.toString()));
 	}

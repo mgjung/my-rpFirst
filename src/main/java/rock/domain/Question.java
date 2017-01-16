@@ -112,6 +112,7 @@ public class Question {
 		
 	}
 	public boolean userMatching(User user){
+		
 		return this.writer.userMatching(user) && ansswerChecking(user);
 	}
 
@@ -125,7 +126,7 @@ public class Question {
 
 	public boolean ansswerChecking(User user) {
 		boolean result = false;
-		if(ans == null){
+		if(ans == null || ans.size() ==0){
 			return !result;
 		}
 		for (Answer answer : ans) {
@@ -139,6 +140,9 @@ public class Question {
 		this.isDelete = "1";
 		this.deletePerson = user;
 		this.deleteTime = date;
+		if(ans == null){
+			return this;
+		}
 		for(Answer answer : ans){
 			answer.delete(user, date);
 		}

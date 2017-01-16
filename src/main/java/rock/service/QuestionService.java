@@ -41,9 +41,11 @@ public class QuestionService {
 
 	public void delete(User user, Long id) {
 		Question question = findOne(id);
+		
 		if(question.userMatching(user)){
 			Date date = new Date();
 			questionReppository.save(question.delete(user, date));
+			
 		}
 		
 	}
