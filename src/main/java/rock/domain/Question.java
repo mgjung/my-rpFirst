@@ -43,13 +43,15 @@ public class Question {
 	@OneToMany(mappedBy="question")
 	private List<Answer> ans;
 	
+	private int answersCount;
 	
 	public Question(){
 		
 	}
 	
+	
 	public Question(long id, User writer, String title, String isDelete, User deletePerson, Date deleteTime,
-			String contents, List<Answer> ans) {
+			String contents, List<Answer> ans, int answersCount) {
 		super();
 		this.id = id;
 		this.writer = writer;
@@ -59,8 +61,8 @@ public class Question {
 		this.deleteTime = deleteTime;
 		this.contents = contents;
 		this.ans = ans;
+		this.answersCount = answersCount;
 	}
-
 
 
 	public void setId(long id) {
@@ -101,9 +103,8 @@ public class Question {
 	public String toString() {
 		return "Question [id=" + id + ", writer=" + writer + ", title=" + title + ", isDelete=" + isDelete
 				+ ", deletePerson=" + deletePerson + ", deleteTime=" + deleteTime + ", contents=" + contents + ", ans="
-				+ ans + "]";
+				+ ans + ", answersCount=" + answersCount + "]";
 	}
-
 
 	public void dbSetting(User writer) {
 		this.isDelete="0";
@@ -114,11 +115,12 @@ public class Question {
 		return this.writer.userMatching(user) && ansswerChecking(user);
 	}
 
-	public int getAnswerSize() {
-		if(this.ans==null){
-			return 0;
+	public void setAnswerSize() {
+		this.answersCount = 0;
+		if(this.ans!=null){
+			this.answersCount = this.ans.size();
 		}
-		return this.ans.size();
+		
 	}
 
 	public boolean ansswerChecking(User user) {

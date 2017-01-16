@@ -1,5 +1,7 @@
 package rock.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +36,9 @@ public class QnaController {
 	
 	@GetMapping("")
 	public String list(Model model){
+		List<Question> questions = questionService.findAll();
+		model.addAttribute("qnas", questions);
 		
-		model.addAttribute("qnas", questionService.findAll());
 		return "index"; 
 	}
 	
@@ -57,7 +60,7 @@ public class QnaController {
 		
 		Question qna = questionService.findOne(id);
 		model.addAttribute("qna", qna);
-		model.addAttribute("count", qna.getAnswerSize());
+		
 		
 		return "qna/show"; 
 	}

@@ -44,8 +44,8 @@ public class QuestionServiceTest {
 		
 		
 		
-		qus = new Question(1L, user, "test","0",null,null,"test", ans1);
-		qus2 = new Question(2L, user, "test","0",null,null,"test", ans2);
+		qus = new Question(1L, user, "test","0",null,null,"test", ans1, 2);
+		qus2 = new Question(2L, user, "test","0",null,null,"test", ans2, 2);
 		
 	}
 	
@@ -74,7 +74,7 @@ public class QuestionServiceTest {
 	public void question_delete(){
 		
 		Date date = new Date();
-		Question comQus = new Question(1L, user, "test","1",user,date,"test", ans1);
+		Question comQus = new Question(1L, user, "test","1",user,date,"test", ans1, 2);
 		qus.delete(user, date);
 		assertThat(qus.toString(), is(comQus.toString()));
 	}
@@ -82,7 +82,7 @@ public class QuestionServiceTest {
 	@Test
 	public void answer_delete(){
 		Date date = new Date();
-		Answer answer = new Answer(1L, qus, user,"test","0",user, null);
+		Answer answer = new Answer(1L, qus, user,"test","0",null, null);
 		Answer comAns = new Answer(1L, qus, user,"test","1",user,date);
 		
 		answer.delete(user, date);
@@ -92,6 +92,15 @@ public class QuestionServiceTest {
 	@Test
 	public void answer존재여부_확인() throws Exception {
 		assertTrue(qus.isAnswer());
+	}
+	
+	@Test
+	public void setAnswersCount() throws Exception {
+		Question qus = new Question(1L, user, "test","0",null,null,"test", null, 0);
+		Question comQus = new Question(1L, user, "test","0",null,null,"test", ans1, 2);
+		qus.setAns(ans1);
+		qus.setAnswerSize();
+		assertThat(qus.toString(), is (comQus.toString()));
 	}
 	
 }
