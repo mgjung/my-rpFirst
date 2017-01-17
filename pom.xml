@@ -6,7 +6,7 @@
 	<groupId>rockplace</groupId>
 	<artifactId>my-rp</artifactId>
 	<version>1.0.0</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>my-rpFirst</name>
 	<description>Demo project for Spring Boot</description>
@@ -53,6 +53,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
